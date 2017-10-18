@@ -35,7 +35,7 @@ public class DrinkActivity extends AppCompatActivity{
 
             // TODO: 17.10.2017 create query cursor
             Cursor cursor = sqLiteDatabase.query("DRINK",
-                    new String[]{"NAME", "DESCRIPTION", "IMAGE_RESOURC_ID"},
+                    new String[]{"NAME", "DESCRIPTION", "IMAGE_RESOURCE_ID"},
                     "_id =? ",
                     new String[]{Integer.toString(drinkNo)},
                     null, null, null);
