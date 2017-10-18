@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
@@ -22,6 +23,7 @@ import android.widget.Toast;
  */
 
 public class DrinkCategoryActivity extends ListActivity{
+    public final static String LOG = "log";
     private Cursor cursor;
     private SQLiteDatabase sqLiteDatabase;
 
@@ -103,8 +105,11 @@ public class DrinkCategoryActivity extends ListActivity{
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
+        Log.d(LOG, "Item was clicked");
         Intent intent = new Intent(DrinkCategoryActivity.this, DrinkActivity.class);
+        Log.d(LOG, "create intent");
         intent.putExtra(DrinkActivity.EXTRA_DRINKNO, (int) id);
+        Log.d(LOG, "Start activity");
         startActivity(intent);
     }
 }

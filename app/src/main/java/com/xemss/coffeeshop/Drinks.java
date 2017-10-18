@@ -18,7 +18,7 @@ public class Drinks {
     // TODO: 15.10.2017 add image resources
     public static final Drinks[] drinks = {
     	new Drinks("Latte", "A coffee drink made with espresso and steamed milk.", R.drawable.latte),
-    	new Drinks("Latte", "A coffee drink made with espresso and steamed milk.", R.drawable.cappuccino),
+    	new Drinks("Cappuccino", "A coffee drink made with espresso and steamed milk.", R.drawable.cappuccino),
 //    	new Drinks("Latte", "A coffee drink made with espresso and steamed milk.")
     };
 
