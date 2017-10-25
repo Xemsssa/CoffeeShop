@@ -31,58 +31,61 @@ public class DrinkActivity extends AppCompatActivity{
 
         int drinkNo = (Integer) getIntent().getExtras().get(EXTRA_DRINKNO);
 
-//        try {
-//            // TODO: 17.10.2017 create helper to operate database
-//            SQLiteOpenHelper sqLiteOpenHelper = new CoffeeShopHelper(this);
-//            SQLiteDatabase sqLiteDatabase = sqLiteOpenHelper.getReadableDatabase();
-//
-//            // TODO: 17.10.2017 create query cursor
-//            Cursor cursor = sqLiteDatabase.query("DRINK",
-//                    new String[]{"NAME", "DESCRIPTION", "IMAGE_RESOURCE_ID"},
-//                    "_id =? ",
-//                    new String[]{Integer.toString(drinkNo)},
-//                    null, null, null);
-//
-//            if (cursor.moveToFirst()) {
-//                // TODO: 17.10.2017 get resourse from cursor
-//                String nameText = cursor.getString(0);
-//                String descriptionText = cursor.getString(1);
-//                int imageId = cursor.getInt(2);
-//
-//                // TODO: 17.10.2017 find views
-//                name = (TextView) findViewById(R.id.name);
-//                desc = (TextView) findViewById(R.id.desc);
-//                image = (ImageView) findViewById(R.id.image);
-//
-//                // TODO: 17.10.2017 set content
-//                name.setText(nameText);
-//                desc.setText(descriptionText);
-//                image.setImageResource(imageId);
-//                image.setContentDescription(nameText);
+        try {
+            // TODO: 17.10.2017 create helper to operate database
+            SQLiteOpenHelper sqLiteOpenHelper = new CoffeeShopHelper(this);
+            SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+
+            // TODO: 17.10.2017 create query cursor
+            Cursor cursor = db.query("Drink",
+                    new String[]{"_id", "NAME", "DESCRIPTION", "IMAGE_RESOURCE_ID"},
+                    "_id = ?",
+                    new String[]{Integer.toString(drinkNo)},
+                    null,
+                    null,
+                    null);
+
+                // TODO: 17.10.2017 get resource from cursor
+                String itemName = cursor.getString(1);
+                String itemDesc = cursor.getString(2);
+                Integer itemImage = cursor.getInt(3);
+
+                // TODO: 17.10.2017 find views
+                name = (TextView) findViewById(R.id.name);
+                desc = (TextView) findViewById(R.id.desc);
+                image = (ImageView) findViewById(R.id.image);
+
+                // TODO: 17.10.2017 set content
+                name.setText(itemName);
+                desc.setText(itemDesc);
+                image.setImageResource(itemImage);
+                image.setContentDescription(itemName);
+
 //            }
+
+            // TODO: 17.10.2017 close database connection
+        cursor.close();
+        db.close();
+
+
+        } catch (SQLException e) {
+            Toast.makeText(this, "Error database connection", Toast.LENGTH_SHORT).show();
+        }
+
+//        Drinks drink = Drinks.drinks[drinkNo];
+//        // TODO: 15.10.2017 get views
 //
-//            // TODO: 17.10.2017 close database connection
-//            cursor.close();
-//            sqLiteDatabase.close();
+//        image = (ImageView) findViewById(R.id.image);
+//        name = (TextView) findViewById(R.id.name);
+//        desc = (TextView) findViewById(R.id.desc);
 //
-//        } catch (SQLException e) {
-//            Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT).show();
-//        }
-
-        Drinks drink = Drinks.drinks[drinkNo];
-        // TODO: 15.10.2017 get views  
-
-        image = (ImageView) findViewById(R.id.image);
-        name = (TextView) findViewById(R.id.name);
-        desc = (TextView) findViewById(R.id.desc);
-
-        image.setImageResource(drink.getImage());
-        image.setContentDescription(drink.getName());
-
-        name = (TextView) findViewById(R.id.name);
-        name.setText(drink.getName());
-
-        desc = (TextView) findViewById(R.id.desc);
-        desc.setText(drink.getDesc());
+//        image.setImageResource(drink.getImage());
+//        image.setContentDescription(drink.getName());
+//
+//        name = (TextView) findViewById(R.id.name);
+//        name.setText(drink.getName());
+//
+//        desc = (TextView) findViewById(R.id.desc);
+//        desc.setText(drink.getDesc());
     }
 }
