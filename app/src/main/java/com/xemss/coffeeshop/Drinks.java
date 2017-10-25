@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by xemss on 04.10.2017.
  *
  * // TODO: 15.10.2017 didn't show in listView drinks from Drinks
- * // TODO: 18.10.2017 solved! add mathod toString
+ * // TODO: 18.10.2017 solved! add method toString
  */
 
 public class Drinks {
