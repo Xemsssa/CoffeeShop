@@ -35,25 +35,20 @@ public class DrinkActivity extends AppCompatActivity{
             // TODO: 17.10.2017 create helper to operate database
             SQLiteOpenHelper sqLiteOpenHelper = new CoffeeShopHelper(this);
             SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
-            Cursor cursor;
 
             // TODO: 17.10.2017 create query cursor
-//            try {
-                cursor = db.query("Drink",
-                        new String[]{"_id", "NAME", "DESCRIPTION", "IMAGE_RESOURCE_ID"},
-                        "_id = ?",
-                        new String[]{Integer.toString(drinkNo)},
-                        null,
-                        null,
-                        null);
-//            } catch (SQLException e){
-//                Toast.makeText(this, "coudn't query from database", Toast.LENGTH_LONG).show();
-//            }
+            Cursor cursor = db.query("Drink",
+                    new String[]{"_id", "NAME", "DESCRIPTION", "IMAGE_RESOURCE_ID"},
+                    "_id = ?",
+                    new String[]{Integer.toString(drinkNo)},
+                    null,
+                    null,
+                    null);
 
             // TODO: 17.10.2017 get resource from cursor
             String itemName = cursor.getString(1);
             String itemDesc = cursor.getString(2);
-            Integer itemImage = cursor.getInt(3);
+            int itemImage = cursor.getInt(3);
 
             // TODO: 17.10.2017 find views
             name = (TextView) findViewById(R.id.name);
@@ -66,11 +61,9 @@ public class DrinkActivity extends AppCompatActivity{
             image.setImageResource(itemImage);
             image.setContentDescription(itemName);
 
-//            }
-
             // TODO: 17.10.2017 close database connection
-        cursor.close();
-        db.close();
+            cursor.close();
+            db.close();
 
         } catch (SQLException e) {
             Toast.makeText(this, "Error database connection", Toast.LENGTH_SHORT).show();

@@ -34,30 +34,30 @@ public class DrinkCategoryActivity extends ListActivity{
         // TODO: 17.10.2017 get view
         ListView listDrinks = getListView();
 
-//        ArrayAdapter<Drinks> listAdapter = new ArrayAdapter<Drinks>(
-//                this,
-//                android.R.layout.simple_list_item_1,
-//                Drinks.drinks);
-//
-//        listDrinks.setAdapter(listAdapter);
-
-        // TODO: 25.10.2017 get drinks from database
-        SQLiteOpenHelper sqLiteOpenHelper = new CoffeeShopHelper(this);
-        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
-
-        cursor = db.query("DRINK",
-            new String[] {"_id",  "NAME"},
-                null, null, null, null, null, null);
-
-        CursorAdapter listAdapter =  new SimpleCursorAdapter(
+        ArrayAdapter<Drinks> listAdapter = new ArrayAdapter<Drinks>(
                 this,
                 android.R.layout.simple_list_item_1,
-                cursor,
-                new String[] {"NAME"},
-                new int[] {android.R.id.text1},
-                0);
+                Drinks.drinks);
 
         listDrinks.setAdapter(listAdapter);
+
+        // TODO: 25.10.2017 get drinks from database
+//        SQLiteOpenHelper sqLiteOpenHelper = new CoffeeShopHelper(this);
+//        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase();
+//
+//        cursor = db.query("DRINK",
+//            new String[] {"_id",  "NAME"},
+//                null, null, null, null, null, null);
+//
+//        CursorAdapter listAdapter =  new SimpleCursorAdapter(
+//                this,
+//                android.R.layout.simple_list_item_1,
+//                cursor,
+//                new String[] {"NAME"},
+//                new int[] {android.R.id.text1},
+//                0);
+//
+//        listDrinks.setAdapter(listAdapter);
 
 //        try {
 //            // TODO: 27.10.2017 create obj to operate database

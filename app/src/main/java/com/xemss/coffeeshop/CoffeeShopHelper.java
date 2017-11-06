@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by xemss on 15.10.2017.
@@ -31,8 +32,27 @@ public class CoffeeShopHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO: 15.10.2017 remove create table and inert method
-        updateDatabase(db, 0, DB_VERSION);
+        // TODO: 15.10.2017 remove create table and insert method
+//        try {
+//            db.execSQL("CREATE TABLE DRINK (" +
+//                        "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                        "NAME TEXT, " +
+//                        "DESCRIPTION TEXT, " +
+//                        "IMAGE_RESOURCE_ID INTEGER);");
+//            // TODO: 17.10.2017 added image for latte and cappuccino
+//            insertDrink(db, "Latte", "Espresso and steamed milk", R.drawable.latte);
+//            insertDrink(db, "cappuccino", "Espresso, hot milk and steamed-milk foam", R.drawable.cappuccino);
+//            // TODO: 17.10.2017 add filter
+//            // insertDrink(db, "Filter", "Our best drip coffee", R.drawable.filter);
+//
+//            Log.d(LOG, "database was created");
+//        } catch (SQLException e) {
+//            Log.d(LOG, "database was NOT created");
+////            Toast.makeText(this, "database was NOT created", Toast.LENGTH_LONG).show();
+//        }
+
+        // TODO rewrite to use function in create and update
+         updateDatabase(db, 0, DB_VERSION);
     }
 
     private static void insertDrink(SQLiteDatabase db, String name, String description, int resource_id) {
@@ -42,44 +62,44 @@ public class CoffeeShopHelper extends SQLiteOpenHelper {
         contentValues.put("DESCRIPTION", description);
         contentValues.put("IMAGE_RESOURCE_ID", resource_id);
 
-        Log.d("Log", "insert into drink " + name + " with name");
+        Log.d(LOG, "insert into drink " + name + " with name");
         db.insert("DRINK", null, contentValues);
     }
 
     private void updateDatabase (SQLiteDatabase db, int oldVersion, int newVersion ) {
         // TODO: 15.10.2017 create tables
-//        if (oldVersion < 1) {
-        try {
-            db.execSQL("CREATE TABLE DRINK (" +
-                    "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "NAME TEXT, " +
-                    "DESCRIPTION TEXT, " +
-                    "IMAGE_RESOURSCE_ID INTEGER);");
-            // TODO: 17.10.2017 added image for latte and cappuccino
-            insertDrink(db, "Latte", "Espresso and steamed milk", R.drawable.latte);
-            insertDrink(db, "cappuccino", "Espresso, hot milk and steamed-milk foam", R.drawable.cappuccino);
-            // TODO: 17.10.2017 add filter
-            // insertDrink(db, "Filter", "Our best drip coffee", R.drawable.filter);
-//        }
-        } catch (SQLException e) {
-            Log.d(LOG, "error create table drink");
+        if (oldVersion < 1) {
+            try {
+                db.execSQL("CREATE TABLE DRINK (" +
+                        "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "NAME TEXT, " +
+                        "DESCRIPTION TEXT, " +
+                        "IMAGE_RESOURCE_ID INTEGER);");
+                // TODO: 17.10.2017 added image for latte and cappuccino
+                insertDrink(db, "Latte", "Espresso and steamed milk", R.drawable.latte);
+                insertDrink(db, "cappuccino", "Espresso, hot milk and steamed-milk foam", R.drawable.cappuccino);
+                // TODO: 17.10.2017 add filter
+                // insertDrink(db, "Filter", "Our best drip coffee", R.drawable.filter);
+                Log.d(LOG, "database was created");
+            } catch (SQLException e) {
+                Log.d(LOG, "error create table drink");
+            }
         }
 
-        if (oldVersion <= 2) {
-           db.execSQL("ALTER TABLE DRINK" +
-                   " ADD COLUMN FAVORITE NUMERIC;");
+        if (oldVersion < 2) {
+           db.execSQL("ALTER TABLE DRINK ADD COLUMN FAVORITE NUMERIC;");
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//         if (oldVersion < 1) {
-             updateDatabase(db, oldVersion,  newVersion);
-//         }
+         if (oldVersion < 1) {
+              updateDatabase(db, oldVersion,  newVersion);
+         }
          
-//         if (oldVersion < 2) {
-//             // TODO: 15.10.2017 if version of db is below 2
-//         }
+         if (oldVersion < 2) {
+             // TODO: 15.10.2017 if version of db is below 2
+         }
 //        if (oldVersion == 1) {
 //
 //        }
